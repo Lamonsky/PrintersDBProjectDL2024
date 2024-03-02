@@ -1,0 +1,14 @@
+SELECT 
+                        do.Nazwa, CONCAT(l.Kod, ' - ', l.Nazwa_Lokalizacji) AS Lokalizacja, CONCAT(dm.Producent, ' ', dm.Model) AS ModelDrukarki, np.Kwota, DATE_FORMAT(np.DataNaprawy,'%Y-%m') AS DataNaprawy
+                    FROM 
+                        Naprawy np
+                    JOIN 
+                        Dostawca do ON np.IDDostawcy = do.IDDostawcy
+                    JOIN
+                        Lokalizacja l ON np.IDLokalizacji = l.IDLokalizacji
+                    JOIN
+                        DrukarkiModele dm ON np.IDModeluDrukarki = dm.IDDrukarki
+                    WHERE 
+                        DATE_FORMAT(np.DataNaprawy,'%Y-%m') BETWEEN '2022-01' AND '2025-12'
+                        AND np.IDLokalizacji IN ('1047')
+                    ORDER BY DataNaprawy ASC, np.IDLokalizacji ASC
